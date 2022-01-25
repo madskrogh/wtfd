@@ -25,7 +25,7 @@ RUN echo '[multilib]' >> /etc/pacman.conf && \
 # install custom tools with yay
 RUN sudo -u aur yay -Sy --noconfirm \
 	bat \
-	direnv-bin \
+	direnv \
 	dog \
 	exa \
 	fd \
@@ -33,18 +33,12 @@ RUN sudo -u aur yay -Sy --noconfirm \
 	fisher \
 	fzf \
 	httpie \
-	neovim \
-	net-tools \
-	nnn \
 	pgcli \
-	ripgrep \
-	tcpdump \
-	termshark \
 	tmux \
 	&& pacman -Qtdq | xargs -r pacman --noconfirm -Rcns \
 	&& rm -rf /home/aur/.cache /var/cache
 
-RUN fish -c "fisher install franciscolourenco/done jorgebucaran/hydro PatrickF1/fzf.fish"
+RUN fish -c "fisher install evanlucas/fish-kubectl-completions PatrickF1/fzf.fish"
 
 COPY rootfs/ /
 
