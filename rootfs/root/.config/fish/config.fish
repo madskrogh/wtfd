@@ -1,7 +1,5 @@
 set -U fish_greeting
 
-fish_vi_key_bindings
-
 # Make default programs
 set -gx EDITOR nvim
 set -gx FILE nnn
