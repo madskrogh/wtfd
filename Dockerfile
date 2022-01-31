@@ -14,8 +14,8 @@ RUN echo '[multilib]' >> /etc/pacman.conf && \
 	mkdir /build && \
 	chown -R aur:aur /build && \
 	cd /build && \
-	sudo -u aur git clone --depth 1 https://aur.archlinux.org/yay.git && \
-	cd yay && \
+	sudo -u aur git clone --depth 1 https://aur.archlinux.org/yay-bin.git && \
+	cd yay-bin && \
 	sudo -u aur makepkg --noconfirm -si && \
 	sudo -u aur yay --afterclean --removemake --save && \
 	pacman -Qtdq | xargs -r pacman --noconfirm -Rcns && \
@@ -34,6 +34,7 @@ RUN sudo -u aur yay -Sy --noconfirm \
 	fzf \
 	httpie \
 	pgcli \
+	tini \
 	tmux \
 	&& pacman -Qtdq | xargs -r pacman --noconfirm -Rcns \
 	&& rm -rf /home/aur/.cache /var/cache
@@ -46,4 +47,4 @@ WORKDIR /root/
 
 RUN ln -sf /usr/share/zoneinfo/Europe/Copenhagen /etc/localtime
 
-ENTRYPOINT ["fish"]
+ENTRYPOINT ["tini", "--", "fish"]
